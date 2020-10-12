@@ -50,21 +50,22 @@ public class PlayfairCipher{
 
     for (int i = 0; i < 5; i++){
       for (int j = 0; j < 5; j++){
-        if (first == key[i][j]){
+        if (first.equals(key[i][j])){
           row = i;
           firstColumn = j;
         }
-        if (second == key[i][j]){
+        if (second.equals(key[i][j])){
           secondColumn = j;
         }
       }
     }
-    String ans = "";
+
     if (row == 4){
       row = -1;
     }
-    ans = key[row + 1][firstColumn] + key[row + 1][secondColumn];
 
+    String ans = "";
+    ans = key[row + 1][firstColumn] + key[row + 1][secondColumn];
     return ans;
   }
 
@@ -77,11 +78,11 @@ public class PlayfairCipher{
 
     for (int i = 0; i < 5; i++){
       for (int j = 0; j < 5; j++){
-        if (first == key[i][j]){
+        if (first.equals(key[i][j])){
           column = j;
           firstRow = i;
         }
-        if (second == key[i][j]){
+        if (second.equals(key[i][j])){
           secondRow = i;
         }
       }
@@ -90,13 +91,11 @@ public class PlayfairCipher{
     if (column == 4){
       column = -1;
     }
-    ans = key[firstRow][column + 1] + key[secondRow][column + 1];
 
+    ans = key[firstRow][column + 1] + key[secondRow][column + 1];
     return ans;
   }
 
-  // regular encode
-  // 3. If the letters are different, replace them with the letters on the same row, but in the column of the other letter
   public static String regularEncode(String letterPair, String [][] key){
     String first = "" + letterPair.charAt(0);
     String second = "" + letterPair.charAt(1);
@@ -107,11 +106,11 @@ public class PlayfairCipher{
 
     for (int i = 0; i < 5; i++){
       for (int j = 0; j < 5; j++){
-        if (first == key[i][j]){
+        if (first.equals(key[i][j])){
           firstRow = i;
           firstColumn = j;
         }
-        if (second == key[i][j]){
+        if (second.equals(key[i][j])){
           secondRow = i;
           secondColumn = j;
         }
@@ -120,6 +119,32 @@ public class PlayfairCipher{
 
     String ans = key[firstRow][secondColumn] + key[secondRow][firstColumn];
     return ans;
+  }
+
+  public static String encodeMethod(String letterPair, String [][] key){
+    String first = "" + letterPair.charAt(0);
+    String second = "" + letterPair.charAt(1);
+    int firstRow = 0;
+    int firstColumn = 0;
+    int secondRow = 0;
+    int secondColumn = 0;
+
+    for (int i = 0; i < 5; i++){
+      for (int j = 0; j < 5; j++){
+        if (first.equals(key[i][j])){
+          firstRow = i;
+          firstColumn = j;
+        }
+        if (second.equals(key[i][j])){
+          secondRow = i;
+          secondColumn = j;
+        }
+      }
+    }
+
+    if (firstRow == secondRow) return verticalEncode(letterPair, key);
+    else if (firstColumn == secondColumn) return horizontalEncode(letterPair, key);
+    else return regularEncode(letterPair, key);
   }
 
   public static void main(String [] args){
@@ -136,11 +161,12 @@ public class PlayfairCipher{
       }
     }
 
-    /* Test for encodePairs
+    /* encodeMethod Test -- GOOD
     String [] encodePairsTest = encodePairs(text);
     for (int i = 0; i < encodePairsTest.length; i++){
-      System.out.println(encodePairsTest[i]);
+      System.out.print(encodeMethod(encodePairsTest[i], key));
     }
-    */
+    System.out.println();*/
+
   }
 }
