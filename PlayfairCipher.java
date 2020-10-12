@@ -175,10 +175,58 @@ public class PlayfairCipher{
     ans = key[row - 1][firstColumn] + key[row - 1][secondColumn];
     return ans;
   }
-  /*1. If the letters are on the same row, use the letters ABOVE them to replace them.
-  2. If the letters are on the same column, use the letters to their LEFT to replace them.
-  3. Same.
-  4. The double letter problem means that there will be extra X's in your code. A human can deal with this.*/
+
+  public static String horizontalDecode(String letterPair, String[][] key){
+    String first = "" + letterPair.charAt(0);
+    String second = "" + letterPair.charAt(1);
+    int column = 0;
+    int firstRow = 0;
+    int secondRow = 0;
+
+    for (int i = 0; i < 5; i++){
+      for (int j = 0; j < 5; j++){
+        if (first.equals(key[i][j])){
+          column = j;
+          firstRow = i;
+        }
+        if (second.equals(key[i][j])){
+          secondRow = i;
+        }
+      }
+    }
+    String ans = "";
+    if (column == 0){
+      column = 5;
+    }
+
+    ans = key[firstRow][column - 1] + key[secondRow][column - 1];
+    return ans;
+  }
+
+  public static String regularDecode(String letterPair, String [][] key){
+    String first = "" + letterPair.charAt(0);
+    String second = "" + letterPair.charAt(1);
+    int firstRow = 0;
+    int firstColumn = 0;
+    int secondRow = 0;
+    int secondColumn = 0;
+
+    for (int i = 0; i < 5; i++){
+      for (int j = 0; j < 5; j++){
+        if (first.equals(key[i][j])){
+          firstRow = i;
+          firstColumn = j;
+        }
+        if (second.equals(key[i][j])){
+          secondRow = i;
+          secondColumn = j;
+        }
+      }
+    }
+
+    String ans = key[firstRow][secondColumn] + key[secondRow][firstColumn];
+    return ans;
+  }
 
 
   public static void main(String [] args){
