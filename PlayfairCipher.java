@@ -51,41 +51,31 @@ public class PlayfairCipher{
     return pairs;
   }
 
-  // vertical and horizontal encode
-  public static String vhEncode(String letterPair, String[][] key){
+  // vertical encode
+  public static String verticalEncode(String letterPair, String[][] key){
     String first = "" + letterPair.charAt(0);
     String second = "" + letterPair.charAt(1);
-    int firstRow = 0;
+    int row = 0;
     int firstColumn = 0;
-    int secondRow = 0;
     int secondColumn = 0;
+
     for (int i = 0; i < 5; i++){
       for (int j = 0; j < 5; j++){
         if (first == key[i][j]){
-          firstRow = i;
+          row = i;
           firstColumn = j;
         }
         if (second == key[i][j]){
-          secondRow = i;
           secondColumn = j;
         }
       }
     }
     String ans = "";
-    if (firstRow == secondRow){
-      if (firstRow == 4){
-        firstRow = -1;
-        secondRow = -1;
-      }
-      ans = key[firstRow + 1][firstColumn] + key[secondRow + 1][secondColumn];
+    if (row == 4){
+      row = -1;
     }
-    if (firstColumn == secondColumn){
-      if (firstColumn == 4){
-        firstColumn = -1;
-        secondColumn = -1;
-      }
-        ans = key[firstRow][firstColumn + 1] + key[secondRow][secondColumn + 1];
-    }
+    ans = key[row][firstColumn] + key[row][secondColumn];
+
     return ans;
   }
 
