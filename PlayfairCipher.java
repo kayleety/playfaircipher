@@ -11,14 +11,40 @@ public class PlayfairCipher{
   // works to create pairs of letters for encode
   public static String[] encodePairs(String text){
     // deals with double letters
-    int length = (int) text.length() / 2 + text.length() % 2;
+    /*int length = (int) text.length() / 2 + text.length() % 2;
 
     for (int i = 0; i < length - 1; i++){
       if (text.charAt(2 * i) == text.charAt(2 * i + 1)){
         text = text.substring(0, 2 * i + 1) + "X" + text.substring(2 * i + 1);
         length = (int) text.length() / 2 + text.length() % 2;
       }
-    }
+    }*/
+    for (int i = 0; i < text.length() - 1; i += 2){
+      if (text.charAt(i) == text.charAt(i+1)){
+          text = text.substring(0, i + 1) + "X" + text.substring(i + 1);
+        }
+      }
+
+    /*if (text.charAt(2 * (text.length() - 2)) == text.charAt(2 * (text.length() - 2) + 1)){
+      text = text.substring(2 * (text.length() - 2) + 1) + "X" + text.charAt(text.length() - 1);
+    }*/
+
+    /*int length = text.length();
+    int a = 0;
+    while (a < length){
+    //for (int i = 0; i < length-1; i++){
+      if (text.charAt(a) == text.charAt(a+1)){
+        text = text.substring(0, a) + "X" + text.substring(a);
+        length = text.length();
+      }
+    }*/
+    /*int n = 0;
+    while (n < text.length()){
+      String pair = text.substring(n, n+2)
+      if pair.substring(0, 1).equals(pair.substring(1)){
+
+      }
+    }*/
 
     // separate the letters in the word into pairs
     int textLen = text.length(); // length of text
@@ -96,7 +122,7 @@ public class PlayfairCipher{
     return ans;
   }
 
-  public static String regularEncode(String letterPair, String [][] key){
+  public static String regular(String letterPair, String [][] key){
     String first = "" + letterPair.charAt(0);
     String second = "" + letterPair.charAt(1);
     int firstRow = 0;
@@ -144,7 +170,7 @@ public class PlayfairCipher{
 
     if (firstRow == secondRow) return verticalEncode(letterPair, key);
     else if (firstColumn == secondColumn) return horizontalEncode(letterPair, key);
-    else return regularEncode(letterPair, key);
+    else return regular(letterPair, key);
   }
 
   /*==================================DECODE==================================*/
@@ -216,31 +242,6 @@ public class PlayfairCipher{
     return ans;
   }
 
-  public static String regularDecode(String letterPair, String [][] key){
-    String first = "" + letterPair.charAt(0);
-    String second = "" + letterPair.charAt(1);
-    int firstRow = 0;
-    int firstColumn = 0;
-    int secondRow = 0;
-    int secondColumn = 0;
-
-    for (int i = 0; i < 5; i++){
-      for (int j = 0; j < 5; j++){
-        if (first.equals(key[i][j])){
-          firstRow = i;
-          firstColumn = j;
-        }
-        if (second.equals(key[i][j])){
-          secondRow = i;
-          secondColumn = j;
-        }
-      }
-    }
-
-    String ans = key[firstRow][secondColumn] + key[secondRow][firstColumn];
-    return ans;
-  }
-
   public static String decodeMethod(String letterPair, String [][] key){
     String first = "" + letterPair.charAt(0);
     String second = "" + letterPair.charAt(1);
@@ -264,7 +265,7 @@ public class PlayfairCipher{
 
     if (firstRow == secondRow) return verticalDecode(letterPair, key);
     else if (firstColumn == secondColumn) return horizontalDecode(letterPair, key);
-    else return regularDecode(letterPair, key);
+    else return regular(letterPair, key);
   }
 
   public static void main(String [] args){
@@ -282,18 +283,25 @@ public class PlayfairCipher{
       }
     }
 
-    /* encodeMethod Test -- GOOD
-    String [] encodePairsTest = encodePairs(text);
+    // encodeMethod Test -- GOOD
+    /*String [] encodePairsTest = encodePairs(text);
     for (int i = 0; i < encodePairsTest.length; i++){
       System.out.print(encodeMethod(encodePairsTest[i], key));
     }
     System.out.println();*/
 
+    String [] encodePairss = encodePairs(text);
+    for (int i = 0; i < encodePairss.length; i++){
+      System.out.println(encodePairss[i]);
+    }
+    System.out.println();
+
     // decodeMethod Test
+    /*
     String [] decodePairsTest = encodePairs(text);
     for (int i = 0; i < decodePairsTest.length; i++){
       System.out.print(decodeMethod(decodePairsTest[i], key));
     }
-    System.out.println();
+    System.out.println();*/
   }
 }
