@@ -18,6 +18,39 @@ public class PlayfairCipher{
     regularEncode(letterPair)
   */
 
+  // works to create pairs of letters for encode
+  public static String[] encodePairs(String text){
+    // deals with double letters
+    int length = (int) text.length() / 2 + text.length() % 2;
+
+    for (int i = 0; i < length - 1; i++){
+      if (text.charAt(2 * i) == text.charAt(2 * i + 1)){
+        text = text.substring(0, 2 * i + 1) + "X" + text.substring(2 * i + 1);
+        length = (int) text.length() / 2 + text.length() % 2;
+      }
+    }
+
+    // separate the letters in the word into pairs
+    int textLen = text.length(); // length of text
+    int len = 0; // used for the length of array
+
+    if (textLen % 2 == 0){ // all letters are put into a pair
+      len = textLen / 2;
+    }
+    else{
+      len = (textLen + 1) / 2;
+      text += "X"; // odd number of letters -> X at the end
+    }
+
+    String [] pairs = new String[len];
+    int j = 0;
+    for (int i = 0; i < text.length(); i += 2){
+        pairs[j] = "" + text.charAt(i) + text.charAt(i+1);
+        j++;
+      }
+    return pairs;
+  }
+
   // vertical and horizontal encode
   public static String vhEncode(String letterPair, String[][] key){
     String first = "" + letterPair.charAt(0);
@@ -70,26 +103,11 @@ public class PlayfairCipher{
       }
     }
 
-    // separate into pairs
-    int textLen = text.length();
-    int len = 0;
-    if (textLen % 2 == 0){
-      len = textLen / 2;
+    /* Test for encodePairs
+    String [] encodePairsTest = encodePairs(text);
+    for (int i = 0; i < encodePairsTest.length; i++){
+      System.out.println(encodePairsTest[i]);
     }
-    else{
-      len = (textLen + 1) / 2;
-      text += "Z";
-    }
-    String [] pairs = new String[len];
-    int j = 0;
-    while (j < len){
-      for (int i = 0; i < text.length(); i+=2){
-        pairs[j] = "" + text.charAt(i) + text.charAt(i+1);
-        j++;
-      }
-    }
-    
-
+    */
   }
-
 }
