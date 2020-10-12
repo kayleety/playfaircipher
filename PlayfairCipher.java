@@ -26,6 +26,23 @@ public class PlayfairCipher{
     }
   }*/
 
+  public static String verticalEncode(String letterPair, String[][] key){
+    String first = "" + letterPair.charAt(0);
+    String second = "" + letterPair.charAt(1);
+    for (int i = 0; i < 5; i++){
+      for (int j = 0; j < 5; j++){
+        if (first == key[i][j]){
+          int firstRow = i;
+          int firstColumn = j;
+        }
+        if (second == key[i][j]){
+          int secondRow = i;
+          int secondColumn = j;
+        }
+      }
+    }
+  }
+
   public static void main(String [] args){
     String text = args[0];
     String keytext = args[1];
