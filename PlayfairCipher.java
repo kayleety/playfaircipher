@@ -18,29 +18,42 @@ public class PlayfairCipher{
     regularEncode(letterPair)
   */
 
-  /*public static String encode(text){
-
-    for (int i = 0; i < text.length(); i++){
-      String s = "" + text.charAt(i);
-      if ()
-    }
-  }*/
-
-  public static String verticalEncode(String letterPair, String[][] key){
+  // vertical and horizontal encode
+  public static String vhEncode(String letterPair, String[][] key){
     String first = "" + letterPair.charAt(0);
     String second = "" + letterPair.charAt(1);
+    int firstRow = 0;
+    int firstColumn = 0;
+    int secondRow = 0;
+    int secondColumn = 0;
     for (int i = 0; i < 5; i++){
       for (int j = 0; j < 5; j++){
         if (first == key[i][j]){
-          int firstRow = i;
-          int firstColumn = j;
+          firstRow = i;
+          firstColumn = j;
         }
         if (second == key[i][j]){
-          int secondRow = i;
-          int secondColumn = j;
+          secondRow = i;
+          secondColumn = j;
         }
       }
     }
+    String ans = "";
+    if (firstRow == secondRow){
+      if (firstRow == 4){
+        firstRow = -1;
+        secondRow = -1;
+      }
+      ans = key[firstRow + 1][firstColumn] + key[secondRow + 1][secondColumn];
+    }
+    if (firstColumn == secondColumn){
+      if (firstColumn == 4){
+        firstColumn = -1;
+        secondColumn = -1;
+      }
+        ans = key[firstRow][firstColumn + 1] + key[secondRow][secondColumn + 1];
+    }
+    return ans;
   }
 
   public static void main(String [] args){
@@ -75,6 +88,8 @@ public class PlayfairCipher{
         j++;
       }
     }
+    
+
   }
 
 }
