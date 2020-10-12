@@ -150,6 +150,7 @@ public class PlayfairCipher{
     int index = 0;
     for (int i = 0; i < textLength; i+=2){
       pairs[index] = "" + text.charAt(i) + text.charAt(i+1);
+      index++;
     }
 
     return pairs;
@@ -276,7 +277,9 @@ public class PlayfairCipher{
     else if (method.equals("decode")){
       String [] decodedPairs = decodePairs(newText);
       for (int i = 0; i < decodedPairs.length; i++){
-        System.out.print(decode(decodedPairs[i], key));
+        if (decodedPairs[i] != null){
+          System.out.print(decode(decodedPairs[i], key));
+        }
       }
       System.out.println();
     }
