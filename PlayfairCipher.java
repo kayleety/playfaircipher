@@ -19,11 +19,25 @@ public class PlayfairCipher{
         length = (int) text.length() / 2 + text.length() % 2;
       }
     }*/
-    /*for (int i = 0; i < text.length() - 1; i += 2){
+    for (int i = 0; i < text.length() - 1; i += 2){
       if (text.charAt(i) == text.charAt(i+1)){
-          text = text.substring(0, i + 1) + "X" + text.substring(i + 1);
-        }
-      }*/
+        text = text.substring(0, i + 1) + "X" + text.substring(i + 1);
+      }
+    }
+
+    int size = text.length();
+    if (size % 2 != 0){
+      size++;
+      text += "Z";
+    }
+
+    String [] pairs = new String[size / 2];
+    int index = 0;
+    for (int i = 0; i < size / 2; i++){
+      pairs[i] = text.substring(index, index + 2);
+      index += 2;
+    }
+
 
     /*if (text.charAt(2 * (text.length() - 2)) == text.charAt(2 * (text.length() - 2) + 1)){
       text = text.substring(2 * (text.length() - 2) + 1) + "X" + text.charAt(text.length() - 1);
@@ -38,25 +52,9 @@ public class PlayfairCipher{
         length = text.length();
       }
     }*/
-    int n = 0;
-    int length = text.length();
-
-    while (n < length){
-      if (n == text.length() - 1){
-        text += "X";
-      }
-      String pair = text.substring(n, n+2);
-      if (pair.substring(0, 1).equals(pair.substring(1))){
-        String newPair = pair.substring(0, 1) + "X";
-        text = text.substring(0, n) + newPair + text.substring(n+1);
-        n += 2;
-        length = text.length();
-      }
-    }
-
     // separate the letters in the word into pairs
     //int textLen = text.length(); // length of text
-    int len = text.length(); // used for the length of array
+    //int len = text.length(); // used for the length of array
 
     /*if (textLen % 2 == 0){ // all letters are put into a pair
       len = textLen / 2;
@@ -66,12 +64,12 @@ public class PlayfairCipher{
       text += "X"; // odd number of letters -> X at the end
     }*/
 
-    String [] pairs = new String[len];
+    /*String [] pairs = new String[len];
     int j = 0;
     for (int i = 0; i < text.length(); i += 2){
       pairs[j] = "" + text.charAt(i) + text.charAt(i+1);
       j++;
-    }
+    }*/
     /* ORIGINAL
     // separate the letters in the word into pairs
     int textLen = text.length(); // length of text
@@ -297,8 +295,19 @@ public class PlayfairCipher{
 
   public static void main(String [] args){
     String text = args[0];
-    text = text.toUpperCase();
     String keytext = args[1];
+
+    text = text.toUpperCase();
+    String newText = "";
+    for (int i = 0; i < text.length(); i++){
+      String chr = "" + text.charAt(i);
+      if (!chr.equals("J")){
+        newText += chr;
+      }
+      else{
+        newText += "I";
+      }
+    }
 
     // position the keytext into an array
     String[][] key = new String[5][5];
@@ -311,9 +320,9 @@ public class PlayfairCipher{
     }
 
     // encodeMethod Test -- GOOD
-    String [] encodePairsTest = encodePairs(text);
+    String [] encodePairsTest = encodePairs(newText);
     for (int i = 0; i < encodePairsTest.length; i++){
-      System.out.print(encodeMethod(encodePairsTest[i], key));
+        System.out.print(encodeMethod(encodePairsTest[i], key));
     }
     System.out.println();
 
@@ -325,8 +334,8 @@ public class PlayfairCipher{
     System.out.println();*/
 
     // decodeMethod Test
-    /*
-    String [] decodePairsTest = encodePairs(text);
+
+    /*String [] decodePairsTest = encodePairs(text);
     for (int i = 0; i < decodePairsTest.length; i++){
       System.out.print(decodeMethod(decodePairsTest[i], key));
     }
