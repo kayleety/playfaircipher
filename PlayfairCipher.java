@@ -7,7 +7,7 @@
 
 public class PlayfairCipher{
 
-/*==================================ENCODE==================================*/
+  /*==================================ENCODE==================================*/
   // works to create pairs of letters for encode
   public static String[] encodePairs(String text){
     // deals with double letters
@@ -35,9 +35,9 @@ public class PlayfairCipher{
     String [] pairs = new String[len];
     int j = 0;
     for (int i = 0; i < text.length(); i += 2){
-        pairs[j] = "" + text.charAt(i) + text.charAt(i+1);
-        j++;
-      }
+      pairs[j] = "" + text.charAt(i) + text.charAt(i+1);
+      j++;
+    }
     return pairs;
   }
 
@@ -147,6 +147,40 @@ public class PlayfairCipher{
     else return regularEncode(letterPair, key);
   }
 
+  /*==================================DECODE==================================*/
+  public static String verticalDecode(String letterPair, String[][] key){
+    String first = "" + letterPair.charAt(0);
+    String second = "" + letterPair.charAt(1);
+    int row = 0;
+    int firstColumn = 0;
+    int secondColumn = 0;
+
+    for (int i = 0; i < 5; i++){
+      for (int j = 0; j < 5; j++){
+        if (first.equals(key[i][j])){
+          row = i;
+          firstColumn = j;
+        }
+        if (second.equals(key[i][j])){
+          secondColumn = j;
+        }
+      }
+    }
+
+    if (row == 0){
+      row = 5;
+    }
+
+    String ans = "";
+    ans = key[row - 1][firstColumn] + key[row - 1][secondColumn];
+    return ans;
+  }
+  /*1. If the letters are on the same row, use the letters ABOVE them to replace them.
+  2. If the letters are on the same column, use the letters to their LEFT to replace them.
+  3. Same.
+  4. The double letter problem means that there will be extra X's in your code. A human can deal with this.*/
+
+
   public static void main(String [] args){
     String text = args[0];
     String keytext = args[1];
@@ -164,9 +198,9 @@ public class PlayfairCipher{
     /* encodeMethod Test -- GOOD
     String [] encodePairsTest = encodePairs(text);
     for (int i = 0; i < encodePairsTest.length; i++){
-      System.out.print(encodeMethod(encodePairsTest[i], key));
-    }
-    System.out.println();*/
-
+    System.out.print(encodeMethod(encodePairsTest[i], key));
   }
+  System.out.println();*/
+
+}
 }
