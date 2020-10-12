@@ -285,7 +285,7 @@ public class PlayfairCipher{
     /* encodeMethod Test -- GOOD
     String [] encodePairsTest = encodePairs(text);
     for (int i = 0; i < encodePairsTest.length; i++){
-    System.out.print(encodeMethod(encodePairsTest[i], key));
+      System.out.print(encodeMethod(encodePairsTest[i], key));
     }
     System.out.println();*/
 
