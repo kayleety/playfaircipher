@@ -115,7 +115,7 @@ public class PlayfairCipher{
     return ans;
   }
 
-  public static String encodeMethod(String letterPair, String [][] key){
+  public static String encode(String letterPair, String [][] key){
     String first = "" + letterPair.charAt(0);
     String second = "" + letterPair.charAt(1);
     int firstRow = 0;
@@ -123,6 +123,7 @@ public class PlayfairCipher{
     int secondRow = 0;
     int secondColumn = 0;
 
+    // determine if the rows or columns are equal to each other to choose method
     for (int i = 0; i < 5; i++){
       for (int j = 0; j < 5; j++){
         if (first.equals(key[i][j])){
@@ -206,11 +207,11 @@ public class PlayfairCipher{
       column = 5;
     }
 
-    ans = key[firstRow][column - 1] + key[secondRow][column - 1]; //column changes
+    ans = key[firstRow][column - 1] + key[secondRow][column - 1]; // column changes
     return ans;
   }
 
-  public static String decodeMethod(String letterPair, String [][] key){
+  public static String decode(String letterPair, String [][] key){
     String first = "" + letterPair.charAt(0);
     String second = "" + letterPair.charAt(1);
     int firstRow = 0;
@@ -218,6 +219,7 @@ public class PlayfairCipher{
     int secondRow = 0;
     int secondColumn = 0;
 
+    // determine if the rows or columns are equal to each other to choose method
     for (int i = 0; i < 5; i++){
       for (int j = 0; j < 5; j++){
         if (first.equals(key[i][j])){
@@ -237,11 +239,13 @@ public class PlayfairCipher{
   }
 
   public static void main(String [] args){
-    String text = args[0];
-    String keytext = args[1];
+    String method = args[0];
+    String text = args[1];
+    String keytext = args[2];
 
     text = text.toUpperCase();
     String newText = "";
+
     for (int i = 0; i < text.length(); i++){
       String chr = "" + text.charAt(i); // current character
       if (!chr.equals("J")){
@@ -253,13 +257,31 @@ public class PlayfairCipher{
     }
 
     // position the keytext into an array
-    String[][] key = new String[5][5];
-    int index = 0;
-    for (int i = 0; i < 5; i++){
-      for (int j = 0; j < 5; j++){
+    String[][] key = new String[5][5]; // array of 5x5
+    int index = 0; // keep track of number of each letter in the word
+    for (int i = 0; i < 5; i++){ // 5 rows
+      for (int j = 0; j < 5; j++){ // 5 columns
         key[i][j] = "" + keytext.charAt(index);
         index++;
       }
+    }
+
+    if (method.equals("encode")){
+      String [] encodedPairs = encodePairs(newText);
+      for (int i = 0; i < encodedPairs.length; i++){
+        System.out.print(encode(encodedPairs[i], key));
+      }
+      System.out.println();
+    }
+    else if (method.equals("decode")){
+      String [] decodedPairs = decodePairs(newText);
+      for (int i = 0; i < decodedPairs.length; i++){
+        System.out.print(decode(decodedPairs[i], key));
+      }
+      System.out.println();
+    }
+    else{
+      System.out.println("Choose one of the valid options: encode or decode");
     }
 
     /* // Check if the letters are properly divided into pairs
@@ -277,10 +299,10 @@ public class PlayfairCipher{
     System.out.println();*/
 
     // decodeMethod Test
-    String [] decodePairsTest = encodePairs(text);
+    /*String [] decodePairsTest = encodePairs(text);
     for (int i = 0; i < decodePairsTest.length; i++){
       System.out.print(decodeMethod(decodePairsTest[i], key));
     }
-    System.out.println();
+    System.out.println();*/
   }
 }
