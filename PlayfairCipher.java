@@ -156,7 +156,6 @@ public class PlayfairCipher{
     return pairs;
   }
 
-
   public static String verticalDecode(String letterPair, String[][] key){
     String first = "" + letterPair.charAt(0);
     String second = "" + letterPair.charAt(1);
@@ -287,25 +286,5 @@ public class PlayfairCipher{
       System.out.println("Choose one of the valid options: encode or decode");
     }
 
-    /* // Check if the letters are properly divided into pairs
-    String [] encodePairss = encodePairs(text);
-    for (int i = 0; i < encodePairss.length; i++){
-      System.out.println(encodePairss[i]);
-    }
-    System.out.println();*/
-
-    /*// encodeMethod Test
-    String [] encodePairsTest = encodePairs(newText);
-    for (int i = 0; i < encodePairsTest.length; i++){
-      System.out.print(encodeMethod(encodePairsTest[i], key));
-    }
-    System.out.println();*/
-
-    // decodeMethod Test
-    /*String [] decodePairsTest = encodePairs(text);
-    for (int i = 0; i < decodePairsTest.length; i++){
-      System.out.print(decodeMethod(decodePairsTest[i], key));
-    }
-    System.out.println();*/
   }
 }
