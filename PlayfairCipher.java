@@ -8,7 +8,23 @@
 public class PlayfairCipher{
 
   // ENCODE
-  //public static encode
+  /*
+    1. If the letters are on the same row, use the letters below them to replace them.
+    2. If the letters are on the same column, use the letters to their right to replace them.
+    3. If the letters are different, replace them with the letters on the same row, but in the column of the other letter
+    4. If the letters are the same, insert an X between them.
+    verticalEncode(letterPair)
+    horizontalEncode(letterPair)
+    regularEncode(letterPair)
+  */
+
+  /*public static String encode(text){
+
+    for (int i = 0; i < text.length(); i++){
+      String s = "" + text.charAt(i);
+      if ()
+    }
+  }*/
 
   public static void main(String [] args){
     String text = args[0];
@@ -24,5 +40,24 @@ public class PlayfairCipher{
       }
     }
 
+    // separate into pairs
+    int textLen = text.length();
+    int len = 0;
+    if (textLen % 2 == 0){
+      len = textLen / 2;
+    }
+    else{
+      len = (textLen + 1) / 2;
+      text += "Z";
+    }
+    String [] pairs = new String[len];
+    int j = 0;
+    while (j < len){
+      for (int i = 0; i < text.length(); i+=2){
+        pairs[j] = "" + text.charAt(i) + text.charAt(i+1);
+        j++;
+      }
+    }
   }
+
 }
