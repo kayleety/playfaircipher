@@ -74,8 +74,36 @@ public class PlayfairCipher{
     if (row == 4){
       row = -1;
     }
-    ans = key[row][firstColumn] + key[row][secondColumn];
+    ans = key[row + 1][firstColumn] + key[row + 1][secondColumn];
 
+    return ans;
+  }
+
+
+  public static String horizontalEncode(String letterPair, String[][] key){
+    String first = "" + letterPair.charAt(0);
+    String second = "" + letterPair.charAt(1);
+    int column = 0;
+    int firstRow = 0;
+    int secondRow = 0;
+
+    for (int i = 0; i < 5; i++){
+      for (int j = 0; j < 5; j++){
+        if (first == key[i][j]){
+          column = j;
+          firstRow = i;
+        }
+        if (second == key[i][j]){
+          secondRow = i;
+        }
+      }
+    }
+    String ans = "";
+    if (column == 4){
+      column = -1;
+    }
+    ans = key[firstRow][column + 1] + key[secondRow][column + 1];
+    
     return ans;
   }
 
