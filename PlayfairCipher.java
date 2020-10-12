@@ -97,7 +97,7 @@ public class PlayfairCipher{
 
   // regular encode
   // 3. If the letters are different, replace them with the letters on the same row, but in the column of the other letter
-  public static String regularEncode(letterPair, String [][] key){
+  public static String regularEncode(String letterPair, String [][] key){
     String first = "" + letterPair.charAt(0);
     String second = "" + letterPair.charAt(1);
     int firstRow = 0;
