@@ -7,17 +7,7 @@
 
 public class PlayfairCipher{
 
-  // ENCODE
-  /*
-    1. If the letters are on the same row, use the letters below them to replace them.
-    2. If the letters are on the same column, use the letters to their right to replace them.
-    3. If the letters are different, replace them with the letters on the same row, but in the column of the other letter
-    4. If the letters are the same, insert an X between them.
-    verticalEncode(letterPair)
-    horizontalEncode(letterPair)
-    regularEncode(letterPair)
-  */
-
+/*==================================ENCODE==================================*/
   // works to create pairs of letters for encode
   public static String[] encodePairs(String text){
     // deals with double letters
@@ -51,7 +41,6 @@ public class PlayfairCipher{
     return pairs;
   }
 
-  // vertical encode
   public static String verticalEncode(String letterPair, String[][] key){
     String first = "" + letterPair.charAt(0);
     String second = "" + letterPair.charAt(1);
@@ -79,7 +68,6 @@ public class PlayfairCipher{
     return ans;
   }
 
-
   public static String horizontalEncode(String letterPair, String[][] key){
     String first = "" + letterPair.charAt(0);
     String second = "" + letterPair.charAt(1);
@@ -103,7 +91,34 @@ public class PlayfairCipher{
       column = -1;
     }
     ans = key[firstRow][column + 1] + key[secondRow][column + 1];
-    
+
+    return ans;
+  }
+
+  // regular encode
+  // 3. If the letters are different, replace them with the letters on the same row, but in the column of the other letter
+  public static String regularEncode(letterPair, String [][] key){
+    String first = "" + letterPair.charAt(0);
+    String second = "" + letterPair.charAt(1);
+    int firstRow = 0;
+    int firstColumn = 0;
+    int secondRow = 0;
+    int secondColumn = 0;
+
+    for (int i = 0; i < 5; i++){
+      for (int j = 0; j < 5; j++){
+        if (first == key[i][j]){
+          firstRow = i;
+          firstColumn = j;
+        }
+        if (second == key[i][j]){
+          secondRow = i;
+          secondColumn = j;
+        }
+      }
+    }
+
+    String ans = key[firstRow][secondColumn] + key[secondRow][firstColumn];
     return ans;
   }
 
