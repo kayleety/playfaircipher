@@ -148,6 +148,19 @@ public class PlayfairCipher{
   }
 
   /*==================================DECODE==================================*/
+  public static String [] decodePairs(String text){
+    int textLength = text.length();
+    String [] pairs = new String[textLength / 2];
+
+    int index = 0;
+    for (int i = 0; i < textLength; i+=2){
+      pairs[index] = "" + text.charAt(i) + text.charAt(i+1);
+    }
+
+    return pairs;
+  }
+
+
   public static String verticalDecode(String letterPair, String[][] key){
     String first = "" + letterPair.charAt(0);
     String second = "" + letterPair.charAt(1);
@@ -228,9 +241,35 @@ public class PlayfairCipher{
     return ans;
   }
 
+  public static String decodeMethod(String letterPair, String [][] key){
+    String first = "" + letterPair.charAt(0);
+    String second = "" + letterPair.charAt(1);
+    int firstRow = 0;
+    int firstColumn = 0;
+    int secondRow = 0;
+    int secondColumn = 0;
+
+    for (int i = 0; i < 5; i++){
+      for (int j = 0; j < 5; j++){
+        if (first.equals(key[i][j])){
+          firstRow = i;
+          firstColumn = j;
+        }
+        if (second.equals(key[i][j])){
+          secondRow = i;
+          secondColumn = j;
+        }
+      }
+    }
+
+    if (firstRow == secondRow) return verticalDecode(letterPair, key);
+    else if (firstColumn == secondColumn) return horizontalDecode(letterPair, key);
+    else return regularDecode(letterPair, key);
+  }
 
   public static void main(String [] args){
     String text = args[0];
+    text = text.toUpperCase();
     String keytext = args[1];
 
     // position the keytext into an array
@@ -247,8 +286,14 @@ public class PlayfairCipher{
     String [] encodePairsTest = encodePairs(text);
     for (int i = 0; i < encodePairsTest.length; i++){
     System.out.print(encodeMethod(encodePairsTest[i], key));
-  }
-  System.out.println();*/
+    }
+    System.out.println();*/
 
-}
+    // decodeMethod Test
+    String [] decodePairsTest = encodePairs(text);
+    for (int i = 0; i < decodePairsTest.length; i++){
+      System.out.print(decodeMethod(decodePairsTest[i], key));
+    }
+    System.out.println();
+  }
 }
