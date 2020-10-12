@@ -17,16 +17,18 @@ public class PlayfairCipher{
       }
     }
 
+    // decides if the number of letters is even or odd; odd -> add Z at end
     int size = text.length();
     if (size % 2 != 0){
       size++;
       text += "Z";
     }
 
+    // create an array holding the pairs of letters
     String [] pairs = new String[size / 2];
     int index = 0;
     for (int i = 0; i < size / 2; i++){
-      pairs[i] = text.substring(index, index + 2);
+      pairs[i] = text.substring(index, index + 2); // ensure only pairs of letters
       index += 2;
     }
 
@@ -52,12 +54,12 @@ public class PlayfairCipher{
       }
     }
 
-    if (row == 4){
+    if (row == 4){ // wrap around if the row is the last row
       row = -1;
     }
 
     String ans = "";
-    ans = key[row + 1][firstColumn] + key[row + 1][secondColumn];
+    ans = key[row + 1][firstColumn] + key[row + 1][secondColumn]; // row changes
     return ans;
   }
 
@@ -80,11 +82,11 @@ public class PlayfairCipher{
       }
     }
     String ans = "";
-    if (column == 4){
+    if (column == 4){ // wrap around if the column is the last column
       column = -1;
     }
 
-    ans = key[firstRow][column + 1] + key[secondRow][column + 1];
+    ans = key[firstRow][column + 1] + key[secondRow][column + 1]; // column changes
     return ans;
   }
 
@@ -109,7 +111,7 @@ public class PlayfairCipher{
       }
     }
 
-    String ans = key[firstRow][secondColumn] + key[secondRow][firstColumn];
+    String ans = key[firstRow][secondColumn] + key[secondRow][firstColumn]; // columns switch
     return ans;
   }
 
@@ -177,7 +179,7 @@ public class PlayfairCipher{
     }
 
     String ans = "";
-    ans = key[row - 1][firstColumn] + key[row - 1][secondColumn];
+    ans = key[row - 1][firstColumn] + key[row - 1][secondColumn]; // row changes
     return ans;
   }
 
@@ -204,7 +206,7 @@ public class PlayfairCipher{
       column = 5;
     }
 
-    ans = key[firstRow][column - 1] + key[secondRow][column - 1];
+    ans = key[firstRow][column - 1] + key[secondRow][column - 1]; //column changes
     return ans;
   }
 
@@ -241,12 +243,12 @@ public class PlayfairCipher{
     text = text.toUpperCase();
     String newText = "";
     for (int i = 0; i < text.length(); i++){
-      String chr = "" + text.charAt(i);
+      String chr = "" + text.charAt(i); // current character
       if (!chr.equals("J")){
         newText += chr;
       }
       else{
-        newText += "I";
+        newText += "I"; // if character is "J", becomes "I"
       }
     }
 
@@ -267,14 +269,14 @@ public class PlayfairCipher{
     }
     System.out.println();*/
 
-    /*// encodeMethod Test -- GOOD
+    /*// encodeMethod Test
     String [] encodePairsTest = encodePairs(newText);
     for (int i = 0; i < encodePairsTest.length; i++){
       System.out.print(encodeMethod(encodePairsTest[i], key));
     }
     System.out.println();*/
 
-    // decodeMethod Test - GOOD
+    // decodeMethod Test
     String [] decodePairsTest = encodePairs(text);
     for (int i = 0; i < decodePairsTest.length; i++){
       System.out.print(decodeMethod(decodePairsTest[i], key));
